@@ -5,8 +5,11 @@ const MoodEntry = require('../models/MoodEntry');
 
 // Middleware to check token
 function verifyToken(req, res, next) {
-  const token = req.headers['authorization'];
-  if (!token) return res.status(403).json({ message: 'Token missing' });
+  const authHeader = req.headers['authorization'];
+  if (!authHeader) return res.status(403).json({ message: 'Token missing' });
+
+  // ✅ Extract token from "Bearer <token>"
+  const token = authHeader.split(' ')[1]; 
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key');
@@ -16,6 +19,7 @@ function verifyToken(req, res, next) {
     res.status(401).json({ message: 'Invalid token' });
   }
 }
+
 
 // POST: Create mood entry
 router.post('/add', verifyToken, async (req, res) => {
