@@ -8,7 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // ✅ CORS setup with full preflight support
-const allowedOrigins = ['http://localhost:3000', 'https://mental-wellness-tracker-a1gt.onrender.com'];
+/*const allowedOrigins = ['http://localhost:3000', 'https://mental-wellness-tracker-a1gt.onrender.com'];
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -24,7 +24,15 @@ app.use(cors({
 }));
 
 // ✅ Handle preflight requests globally
-app.options('*', cors());
+app.options('*', cors());*/
+
+// ✅ Temporarily loosened CORS for testing
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+
 
 app.use(express.json());
 
