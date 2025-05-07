@@ -25,12 +25,9 @@ app.get(['/', '/login', '/register', '/log-mood', '/history', '/chart'], (req, r
 });
 
 // ✅ Connect to MongoDB and start the server
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(() => {
-  console.log('✅ MongoDB connected');
-  app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
-})
-.catch((err) => console.error('❌ DB connection error:', err));
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log('✅ MongoDB connected');
+    app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
+  })
+  .catch((err) => console.error('❌ DB connection error:', err));
