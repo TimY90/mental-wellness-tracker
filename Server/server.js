@@ -24,6 +24,9 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
+// Just forcing a change for deploy
+console.log("✅ Wildcard route hit");
+
 // TEMP: test change to confirm git sees file update
 
 // ✅ Connect to MongoDB and start the server
