@@ -7,34 +7,16 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// ✅ CORS setup with full preflight support
-/*const allowedOrigins = ['http://localhost:3000', 'https://mental-wellness-tracker-a1gt.onrender.com'];
-
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
-
-// ✅ Handle preflight requests globally
-app.options('*', cors());*/
-
-// ✅ Temporarily loosened CORS for testing
-app.use(cors({
-  origin: '*',
+// ✅ Proper CORS setup using shared config
+const corsOptions = {
+  origin: '*', // Allow all origins temporarily for testing
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+};
 
-// ✅ Enable preflight for all routes
-app.options('*', cors());
+app.use(cors(corsOptions));          // Main CORS middleware
+app.options('*', cors(corsOptions)); // Preflight requests
+
 app.use(express.json());
 
 // ✅ API routes
@@ -46,7 +28,7 @@ app.use('/api/mood', moodRoutes);
 // ✅ Serve React build files
 app.use(express.static(path.join(__dirname, 'build')));
 
-// ✅ Fix wildcard for React routing (safe for path-to-regexp)
+// ✅ Catch-all for React routing
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
