@@ -7,10 +7,11 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// ✅ CORS setup
+// ✅ CORS setup with full preflight support
 const allowedOrigins = ['http://localhost:3000', 'https://mental-wellness-tracker-a1gt.onrender.com'];
+
 app.use(cors({
-  origin: (origin, callback) => {
+  origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -18,7 +19,12 @@ app.use(cors({
     }
   },
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
+// ✅ Handle preflight requests globally
+app.options('*', cors());
 
 app.use(express.json());
 
@@ -31,14 +37,10 @@ app.use('/api/mood', moodRoutes);
 // ✅ Serve React build files
 app.use(express.static(path.join(__dirname, 'build')));
 
-// ✅ Catch-all for frontend routing
-app.get('/*path', (req, res) => { 
+// ✅ Fix wildcard for React routing (safe for path-to-regexp)
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
-
-
-
-
 
 // ✅ Connect to MongoDB and start server
 mongoose.connect(process.env.MONGO_URI)
