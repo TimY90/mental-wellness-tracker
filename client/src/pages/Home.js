@@ -1,18 +1,19 @@
-// src/Home.js
+// Imports the React library and the hook for navigation
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// This component represents the landing page of the Mental Wellness Tracker application
+// Functional component representing the Home page
 function Home() {
-  const navigate = useNavigate(); // Hook used to programmatically navigate between routes
+  // Initializes the navigation hook from React Router
+  const navigate = useNavigate();
 
   return (
     <div style={{ padding: '2rem', textAlign: 'center' }}>
-      {/* Application title and description */}
+      {/* Page title and description */}
       <h1>Mental Wellness Tracker</h1>
       <p>Track your moods, manage your stress, and reflect on your wellness journey.</p>
 
-      {/* Navigation buttons to key areas of the application */}
+      {/* Navigation buttons that redirect the user to various pages */}
       <button onClick={() => navigate('/register')} style={{ margin: '1rem' }}>
         Register
       </button>

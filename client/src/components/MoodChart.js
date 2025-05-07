@@ -1,50 +1,60 @@
+// Imports React and necessary hooks for state and lifecycle
 import React, { useEffect, useState } from 'react';
+// Imports Axios for API requests
 import axios from 'axios';
-import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from 'recharts';
+// Imports chart components from Recharts
+import {
+  LineChart, Line, XAxis, YAxis, Tooltip,
+  CartesianGrid, ResponsiveContainer
+} from 'recharts';
 
-// This component displays a line chart of the user's mood and stress level over time
+// Functional component to render a mood trend chart
 function MoodChart() {
+  // Initializes state to hold mood data for the chart
   const [data, setData] = useState([]);
 
+  // Runs once on component mount to fetch mood data from backend
   useEffect(() => {
-    // When the component mounts, it fetches the user's mood data from the backend API
     const fetchData = async () => {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('token'); // Retrieves token for authentication
+
       try {
+        // Sends a GET request to retrieve the user's mood data
         const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/mood/my-moods`, {
           headers: {
-            Authorization: `Bearer ${token}` // The token is included in the header for authentication
+            Authorization: `Bearer ${token}`
           }
         });
 
-        // The returned data is transformed to include only the fields needed for the chart
+        // Transforms the data into a format suitable for the chart
         const chartData = res.data.map(entry => ({
           mood: entry.mood,
-          stress: Number(entry.stressLevel), // Converts stress level to a number for charting
-          date: new Date(entry.createdAt).toLocaleDateString() // Formats date for display on the x-axis
+          stress: Number(entry.stressLevel),
+          date: new Date(entry.createdAt).toLocaleDateString()
         }));
 
-        setData(chartData.reverse()); // Optional: reverses the order to show the most recent first
+        // Reverses the array so the latest entries appear last in the chart
+        setData(chartData.reverse());
       } catch (err) {
-        // Any errors during the fetch are logged to the console
         console.error('Error fetching mood data:', err.response?.data || err.message);
       }
     };
 
-    fetchData(); // Calls the asynchronous function to fetch mood data
+    // Invokes the data fetching function
+    fetchData();
   }, []);
 
-  // The component renders a responsive line chart using Recharts
+  // Renders the line chart inside a responsive container
   return (
     <div>
       <h3>Mood Trend</h3>
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={data}>
-          <XAxis dataKey="date" /> // Displays dates on the x-axis
-          <YAxis domain={[0, 10]} /> // Sets the y-axis range from 0 to 10 for stress levels
-          <Tooltip /> // Shows tooltip on hover
-          <CartesianGrid stroke="#ccc" /> // Adds a grid to the chart
-          <Line type="monotone" dataKey="stress" stroke="#8884d8" /> // Plots stress level as a line
+          <XAxis dataKey="date" />
+          <YAxis domain={[0, 10]} />
+          <Tooltip />
+          <CartesianGrid stroke="#ccc" />
+          <Line type="monotone" dataKey="stress" stroke="#8884d8" />
         </LineChart>
       </ResponsiveContainer>
     </div>
