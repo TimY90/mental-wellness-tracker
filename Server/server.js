@@ -10,7 +10,8 @@ const PORT = process.env.PORT || 5000;
 // ✅ CORS setup: allow both localhost and deployed frontend
 const allowedOrigins = [
   'http://localhost:3000',
-  'https://mental-wellness-tracker-a1gt.onrender.com'
+  'https://mental-wellness-tracker-a1gt.onrender.com',
+  'https://mental-wellness-tracker-r6kn.onrender.com'
 ];
 
 app.use(cors({
@@ -18,7 +19,8 @@ app.use(cors({
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      callback(new Error('CORS not allowed from this origin'));
+      console.error('❌ CORS blocked:', origin);
+      callback(new Error('Not allowed by CORS'));
     }
   },
   credentials: true,
@@ -26,8 +28,9 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-// ✅ Handle preflight OPTIONS request globally
+// Handle preflight
 app.options('*', cors());
+
 
 app.use(express.json());
 
