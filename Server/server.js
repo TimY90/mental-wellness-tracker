@@ -32,9 +32,10 @@ app.use('/api/mood', moodRoutes);
 app.use(express.static(path.join(__dirname, 'build')));
 
 // ✅ Catch-all for frontend routing
-app.get('/:splat*', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
+
 
 
 // ✅ Connect to MongoDB and start server
