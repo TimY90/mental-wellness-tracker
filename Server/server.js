@@ -10,16 +10,11 @@ const PORT = process.env.PORT || 5000;
 const allowedOrigins = ['http://localhost:3000', 'https://your-frontend-domain.com'];
 
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
+
 
 app.use(express.json());
 
