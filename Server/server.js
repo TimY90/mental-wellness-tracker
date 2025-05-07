@@ -37,9 +37,10 @@ app.use('/api/mood', moodRoutes);
 // ✅ Serve React frontend
 app.use(express.static(path.join(__dirname, 'build')));
 
-app.get(['/', '/login', '/register', '/log-mood', '/history', '/chart'], (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
+
 
 // ✅ Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
