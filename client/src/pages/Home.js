@@ -1,27 +1,28 @@
-// Imports the React library and the hook for navigation
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // Used for programmatic navigation
 
-// Functional component representing the Home page
 function Home() {
-  // Initializes the navigation hook from React Router
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Hook to allow navigation on button click
 
   return (
     <div style={{ padding: '2rem', textAlign: 'center' }}>
-      {/* Page title and description */}
+      {/* Main heading for the landing page */}
       <h1>Mental Wellness Tracker</h1>
+
+      {/* Introductory text for the application */}
       <p>Track your moods, manage your stress, and reflect on your wellness journey.</p>
 
-      {/* Navigation buttons that redirect the user to various pages */}
+      {/* Button to navigate to the Register page */}
       <button onClick={() => navigate('/register')} style={{ margin: '1rem' }}>
         Register
       </button>
 
+      {/* Button to navigate to the Login page */}
       <button onClick={() => navigate('/login')} style={{ margin: '1rem' }}>
         Login
       </button>
 
+      {/* Button to navigate to the Mood Chart page */}
       <button onClick={() => navigate('/chart')} style={{ margin: '1rem' }}>
         View Mood Chart
       </button>

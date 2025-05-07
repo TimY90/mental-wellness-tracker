@@ -1,15 +1,13 @@
-// Imports React and hooks for navigation and linking
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-// Functional component for the navigation bar
 function Navbar() {
   const navigate = useNavigate();
 
-  // Checks whether a user is logged in by verifying token existence
+  // Checks if a token exists to determine if the user is logged in
   const isLoggedIn = !!localStorage.getItem('token');
 
-  // Handles user logout by clearing the token and redirecting to login page
+  // Clears token and redirects to login
   const handleLogout = () => {
     localStorage.removeItem('token');
     alert('Logged out');
@@ -23,7 +21,7 @@ function Navbar() {
       padding: '10px',
       borderBottom: '1px solid #ccc'
     }}>
-      {/* Always visible links */}
+      {/* Navigation links available to all users */}
       <Link to="/" style={{ marginRight: '15px' }}>Home</Link>
       <Link to="/log-mood" style={{ marginRight: '15px' }}>Log Mood</Link>
       <Link to="/mood-history" style={{ marginRight: '15px' }}>Mood History</Link>
