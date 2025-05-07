@@ -19,6 +19,7 @@ app.use('/api/mood', moodRoutes);
 // ✅ Serve static files from the React frontend build
 app.use(express.static(path.join(__dirname, 'build')));
 
+
 // ✅ Serve index.html for any unknown routes
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
