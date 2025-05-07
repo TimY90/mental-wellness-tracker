@@ -12,10 +12,17 @@ function Navbar() {
   };
 
   return (
-    <nav style={{ marginBottom: '20px' }}>
+    <nav style={{
+      marginBottom: '20px',
+      background: '#e0f7fa',
+      padding: '10px',
+      borderBottom: '2px solid #00796b'
+    }}>
+      <h3 style={{ marginTop: 0 }}>🔷 Navbar is rendering!</h3> {/* ✅ Visual confirmation */}
       <Link to="/" style={{ marginRight: '15px' }}>Home</Link>
       <Link to="/log-mood" style={{ marginRight: '15px' }}>Log Mood</Link>
       <Link to="/mood-history" style={{ marginRight: '15px' }}>Mood History</Link>
+      <Link to="/chart" style={{ marginRight: '15px' }}>Mood Chart</Link>
 
       {!isLoggedIn && (
         <>
