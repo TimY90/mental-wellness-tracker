@@ -7,7 +7,7 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// ✅ CORS setup: allow both localhost and deployed frontend
+// CORS configuration: Allows requests from development and production frontend URLs
 const allowedOrigins = [
   'http://localhost:3000',
   'https://mental-wellness-tracker-a1gt.onrender.com',
@@ -19,7 +19,7 @@ app.use(cors({
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      console.error('❌ CORS blocked:', origin);
+      console.error('CORS blocked:', origin);
       callback(new Error('Not allowed by CORS'));
     }
   },
@@ -28,30 +28,30 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-// Handle preflight
+// Enables handling of preflight OPTIONS requests for all routes
 app.options('*', cors());
 
-
+// Parses incoming JSON requests
 app.use(express.json());
 
-// ✅ API routes
+// API route handlers
 const authRoutes = require('./routes/auth');
 const moodRoutes = require('./routes/mood');
 app.use('/api/auth', authRoutes);
 app.use('/api/mood', moodRoutes);
 
-// ✅ Serve frontend build from Server/build (production)
+// Serves static frontend files from the build directory
 app.use(express.static(path.join(__dirname, 'build')));
 
-// ✅ Wildcard route for React Router (MUST be below API routes)
+// Wildcard route: Sends index.html for all non-API routes to support client-side routing
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-// ✅ Connect to MongoDB and start server
+// Connects to MongoDB using credentials from environment variables and starts the server
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
-    console.log('✅ MongoDB connected');
-    app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+    console.log('MongoDB connected');
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
   })
-  .catch(err => console.error('❌ DB connection error:', err));
+  .catch(err => console.error('DB connection error:', err));
