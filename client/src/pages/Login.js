@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // ✅ Step 1: Import
+import { useNavigate } from 'react-router-dom';
+
+const API_BASE_URL =
+  window.location.hostname === 'localhost'
+    ? 'http://localhost:5000'
+    : 'https://mental-wellness-tracker-r6kn.onrender.com';
 
 function Login() {
   const [form, setForm] = useState({ email: '', password: '' });
-  const navigate = useNavigate(); // ✅ Step 2: Initialize navigate
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -14,13 +19,14 @@ function Login() {
     e.preventDefault();
 
     try {
-      const res = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/auth/login`, form);
+      const res = await axios.post(`${API_BASE_URL}/api/auth/login`, form);
       localStorage.setItem('token', res.data.token);
       alert('Login successful!');
-      navigate('/log-mood'); // ✅ Step 3: Redirect after success
+      navigate('/log-mood');
     } catch (err) {
-      console.error(err);
-      alert('Login failed.');
+      const msg = err?.response?.data?.message || err.message;
+      alert(`Login failed: ${msg}`);
+      console.error('Login error:', err);
     }
   };
 

@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // ✅ For redirect
+import { useNavigate } from 'react-router-dom';
+
+// ✅ Automatically choose correct API URL based on environment
+const API_BASE_URL =
+  window.location.hostname === 'localhost'
+    ? 'http://localhost:5000'
+    : 'https://mental-wellness-tracker-r6kn.onrender.com';
 
 function Register() {
   const [form, setForm] = useState({ name: '', email: '', password: '' });
-  const [loading, setLoading] = useState(false); // ✅ Loading state
-  const navigate = useNavigate(); // ✅ Initialize navigation
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -13,22 +19,19 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitting:", form);
-    setLoading(true); // ✅ Start loading
+    console.log('Submitting:', form);
+    setLoading(true);
 
     try {
-      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/auth/register`, form);
+      await axios.post(`${API_BASE_URL}/api/auth/register`, form);
       alert('User registered! You can now log in.');
-      navigate('/login'); // ✅ Redirect to login page
+      navigate('/login');
     } catch (err) {
-      if (err.response && err.response.data && err.response.data.message) {
-        alert(`Registration failed: ${err.response.data.message}`);
-      } else {
-        alert('Registration failed. Please try again.');
-      }
-      console.error("Registration error:", err.response?.data || err.message);
+      const msg = err?.response?.data?.message || err.message;
+      alert(`Registration failed: ${msg}`);
+      console.error('Registration error:', err);
     } finally {
-      setLoading(false); // ✅ End loading
+      setLoading(false);
     }
   };
 
