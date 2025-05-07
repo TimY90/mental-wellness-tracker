@@ -12,8 +12,8 @@ function Register() {
     e.preventDefault();
     console.log("Submitting:", form); //To see the information in the console when inspected
     try {
-      await axios.post('http://localhost:5000/api/auth/register', form);
-
+      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/auth/register`, form);
+      
       alert('User registered! You can now log in.');
     } catch (err) {
       if (err.response && err.response.data && err.response.data.message) {

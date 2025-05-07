@@ -18,8 +18,8 @@ function MoodForm() {
     if (!token) return alert('Please log in first.');
   
     try {
-      await axios.post('http://localhost:5000/api/mood/add', form, {
-        headers: {
+      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/mood/add`, form, {
+          headers: {
           Authorization: `Bearer ${token}` // ✅ This is the critical fix
         }
       });
