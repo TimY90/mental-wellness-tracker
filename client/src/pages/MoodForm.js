@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // ✅ Add this
 
 function MoodForm() {
   const [form, setForm] = useState({
@@ -7,6 +8,8 @@ function MoodForm() {
     stressLevel: '',
     note: ''
   });
+
+  const navigate = useNavigate(); // ✅ Hook for navigation
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -16,25 +19,26 @@ function MoodForm() {
     e.preventDefault();
     const token = localStorage.getItem('token');
     if (!token) return alert('Please log in first.');
-  
+
     try {
-      console.log("Token being sent:", token); // ✅ Add this line to check the token
-  
+      console.log("Token being sent:", token); // ✅ Debug log
+
       await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/mood/add`, form, {
         headers: {
-          Authorization: `Bearer ${token}` // ✅ Token format is correct
+          Authorization: `Bearer ${token}`
         }
       });
-  
+
       alert('Mood saved!');
       setForm({ mood: '', stressLevel: '', note: '' });
+
+      navigate('/mood-history'); // ✅ Redirect to mood history page
+
     } catch (err) {
       console.error("❌ Error saving mood:", err.response?.data || err.message);
       alert('Failed to save mood.');
     }
   };
-  
-  
 
   return (
     <form onSubmit={handleSubmit}>
