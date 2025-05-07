@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // ✅ Step 1: Import
 
 function Login() {
   const [form, setForm] = useState({ email: '', password: '' });
+  const navigate = useNavigate(); // ✅ Step 2: Initialize navigate
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -15,6 +17,7 @@ function Login() {
       const res = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/auth/login`, form);
       localStorage.setItem('token', res.data.token);
       alert('Login successful!');
+      navigate('/log-mood'); // ✅ Step 3: Redirect after success
     } catch (err) {
       console.error(err);
       alert('Login failed.');

@@ -6,18 +6,28 @@ function MoodChart() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    axios.get('http://localhost:5000/api/mood/my-moods', {
-      headers: { Authorization: `Bearer ${token}` }
-    }).then((res) => {
-      // Simplify data for chart
-      const chartData = res.data.map(entry => ({
-        mood: entry.mood,
-        stress: Number(entry.stressLevel),
-        date: new Date(entry.createdAt).toLocaleDateString()
-      }));
-      setData(chartData.reverse()); // Optional: latest first
-    });
+    const fetchData = async () => {
+      const token = localStorage.getItem('token');
+      try {
+        const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/mood/my-moods`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        const chartData = res.data.map(entry => ({
+          mood: entry.mood,
+          stress: Number(entry.stressLevel),
+          date: new Date(entry.createdAt).toLocaleDateString()
+        }));
+
+        setData(chartData.reverse()); // Optional: latest first
+      } catch (err) {
+        console.error('Error fetching mood data:', err.response?.data || err.message);
+      }
+    };
+
+    fetchData(); // 🔁 call the async function
   }, []);
 
   return (

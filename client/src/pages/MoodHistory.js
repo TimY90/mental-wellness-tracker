@@ -10,7 +10,8 @@ function MoodHistory() {
       if (!token) return alert('Please log in to view your mood history.');
 
       try {
-        const res = await axios.get('http://localhost:5000/api/mood/my-moods', {
+        const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/mood/my-moods`, {
+
           headers: {
             Authorization: `Bearer ${token}`
           }

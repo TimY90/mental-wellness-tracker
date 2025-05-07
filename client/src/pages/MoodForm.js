@@ -18,11 +18,14 @@ function MoodForm() {
     if (!token) return alert('Please log in first.');
   
     try {
+      console.log("Token being sent:", token); // ✅ Add this line to check the token
+  
       await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/mood/add`, form, {
-          headers: {
-          Authorization: `Bearer ${token}` // ✅ This is the critical fix
+        headers: {
+          Authorization: `Bearer ${token}` // ✅ Token format is correct
         }
       });
+  
       alert('Mood saved!');
       setForm({ mood: '', stressLevel: '', note: '' });
     } catch (err) {
@@ -30,6 +33,7 @@ function MoodForm() {
       alert('Failed to save mood.');
     }
   };
+  
   
 
   return (
