@@ -7,16 +7,18 @@ function MoodHistory() {
   useEffect(() => {
     const fetchMoods = async () => {
       const token = localStorage.getItem('token');
-      if (!token) return alert('Please log in first.');
+      if (!token) return alert('Please log in to view your mood history.');
 
       try {
         const res = await axios.get('http://localhost:5000/api/mood/my-moods', {
-          headers: { Authorization: token }
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
         });
         setMoods(res.data);
       } catch (err) {
-        console.error(err);
-        alert('Failed to load mood history.');
+        console.error('❌ Error fetching moods:', err.response?.data || err.message);
+        alert('Failed to fetch mood history.');
       }
     };
 
@@ -26,15 +28,19 @@ function MoodHistory() {
   return (
     <div>
       <h2>Your Mood History</h2>
-      {moods.length === 0 && <p>No mood entries yet.</p>}
-      {moods.map((entry, i) => (
-        <div key={i} style={{ border: '1px solid #ccc', padding: '10px', marginBottom: '10px' }}>
-          <strong>Mood:</strong> {entry.mood}<br />
-          <strong>Stress Level:</strong> {entry.stressLevel}<br />
-          <strong>Date:</strong> {new Date(entry.date).toLocaleString()}<br />
-          {entry.note && <em>Note: {entry.note}</em>}
-        </div>
-      ))}
+      <ul>
+        {moods.map((entry, index) => (
+          <li key={index}>
+            <strong>{entry.mood}</strong> (Stress: {entry.stressLevel}) - {entry.note} <br />
+            <small>
+              {entry.createdAt
+                ? new Date(entry.createdAt).toLocaleString()
+                : 'Date not available'}
+            </small>
+
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

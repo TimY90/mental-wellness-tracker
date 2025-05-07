@@ -16,18 +16,21 @@ function MoodForm() {
     e.preventDefault();
     const token = localStorage.getItem('token');
     if (!token) return alert('Please log in first.');
-
+  
     try {
       await axios.post('http://localhost:5000/api/mood/add', form, {
-        headers: { Authorization: token }
+        headers: {
+          Authorization: `Bearer ${token}` // ✅ This is the critical fix
+        }
       });
       alert('Mood saved!');
       setForm({ mood: '', stressLevel: '', note: '' });
     } catch (err) {
-      console.error(err);
+      console.error("❌ Error saving mood:", err.response?.data || err.message);
       alert('Failed to save mood.');
     }
   };
+  
 
   return (
     <form onSubmit={handleSubmit}>
