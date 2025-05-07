@@ -19,17 +19,10 @@ app.use('/api/mood', moodRoutes);
 // ✅ Serve static files from the React frontend build
 app.use(express.static(path.join(__dirname, 'build')));
 
-
-// ✅ Serve index.html for any unknown routes
-app.get('/:wildcard(*)', (req, res) => {
+// ✅ Serve index.html for frontend routes (non-API)
+app.get(['/', '/login', '/register', '/log-mood', '/history', '/chart'], (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
-
-
-// Just forcing a change for deploy
-console.log("✅ Wildcard route hit");
-
-// TEMP: test change to confirm git sees file update
 
 // ✅ Connect to MongoDB and start the server
 mongoose.connect(process.env.MONGO_URI, {
