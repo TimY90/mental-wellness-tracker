@@ -1,56 +1,54 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Custom CORS middleware
-app.use((req, res, next) => {
-  const allowedOrigins = [
-    'http://localhost:3000',
-    'https://mental-wellness-tracker-a1gt.onrender.com'
-  ];
-  const origin = req.headers.origin;
+// ✅ CORS setup: allow both localhost and deployed frontend
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://mental-wellness-tracker-a1gt.onrender.com'
+];
 
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
-  }
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('CORS not allowed from this origin'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-
-  // Respond to preflight requests
-  if (req.method === 'OPTIONS') {
-    return res.sendStatus(204);
-  }
-
-  next();
-});
-
+// ✅ Handle preflight OPTIONS request globally
+app.options('*', cors());
 
 app.use(express.json());
 
-// API routes
+// ✅ API routes
 const authRoutes = require('./routes/auth');
 const moodRoutes = require('./routes/mood');
 app.use('/api/auth', authRoutes);
 app.use('/api/mood', moodRoutes);
 
-// Serve React build files
+// ✅ Serve frontend build from Server/build (production)
 app.use(express.static(path.join(__dirname, 'build')));
 
-// Catch-all for frontend routing
+// ✅ Wildcard route for React Router (MUST be below API routes)
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-// Connect to MongoDB and start server
+// ✅ Connect to MongoDB and start server
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log('✅ MongoDB connected');
     app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
   })
-  .catch((err) => console.error('❌ DB connection error:', err));
+  .catch(err => console.error('❌ DB connection error:', err));
