@@ -22,7 +22,10 @@ const moodEntrySchema = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now
-  }
+  }, 
+     note: {
+      timestamps: true // ✅ Adds createdAt and updatedAt
+      },
 });
 
 module.exports = mongoose.model('MoodEntry', moodEntrySchema);
