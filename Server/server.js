@@ -21,9 +21,10 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 
 // ✅ Serve index.html for any unknown routes
-app.get('*', (req, res) => {
+app.get('/:wildcard(*)', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
+
 
 // Just forcing a change for deploy
 console.log("✅ Wildcard route hit");
