@@ -1,25 +1,95 @@
-/* Apply dark theme to the entire body */
+/* === GLOBAL STYLES === */
 body {
-  background-color: #000;
-  color: #000000;
+  background-color: #000;         /* Entire page uses a dark background */
+  color: #ffffff;                 /* Light text for contrast */
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
 }
 
-/* Center content inside the form and divs */
-form, .page-content {
+/* === TOP BAR HEADER === */
+.top-bar {
+  background-color: #4a90e2;      /* Bright blue banner at top */
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* === NAVBAR STYLING === */
+.navbar {
+  background-color: #111;         /* Dark background matches overall theme */
+  padding: 1rem;
+  border-bottom: 1px solid #444;  /* Subtle separation line */
+  text-align: center;
+  position: relative;             /* Needed for burger position */
+}
+
+/* Flex container for nav items (desktop layout) */
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Styles for all nav links and the logout button */
+.navbar a,
+.navbar button {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  background-color: transparent;
+  border: 1px solid #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Hover effect for links and button */
+.navbar a:hover,
+.navbar button:hover {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* === BURGER MENU ICON (mobile only) === */
+.burger {
+  display: none;                  /* Hidden on desktop */
+  flex-direction: column;
+  cursor: pointer;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+
+.burger span {
+  height: 3px;
+  width: 25px;
+  background: #ffffff;
+  margin: 4px 0;
+  border-radius: 2px;
+}
+
+/* === MAIN CONTENT STYLES === */
+form,
+.page-content {
   max-width: 600px;
   margin: 2rem auto;
   padding: 2rem;
-  background-color: #111;
+  background-color: #111;         /* Match dark panel */
   border: 1px solid #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px #333;
 }
 
-/* Input and textarea styling */
-input, textarea, button {
+/* === INPUTS AND TEXTAREAS === */
+input,
+textarea,
+button {
   display: block;
   width: 100%;
   margin-bottom: 1rem;
@@ -30,101 +100,37 @@ input, textarea, button {
   border-radius: 4px;
 }
 
-input::placeholder, textarea::placeholder {
-  color: #aaa;
+input::placeholder,
+textarea::placeholder {
+  color: #aaa; /* Light gray placeholder */
 }
 
 button {
   background-color: #333;
   border: 1px solid #fff;
-  cursor: pointer;
   font-weight: bold;
+  cursor: pointer;
 }
 
 button:hover {
   background-color: #555;
 }
 
-/* Navbar styling */
+/* === RESPONSIVE LAYOUT FOR SMALL SCREENS === */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;              /* Hide nav by default on mobile */
+    flex-direction: column;     /* Stack items vertically */
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
 
-/* Navbar styling */
-nav {
-  background-color: #111; /* Dark background for contrast */
-  padding: 1rem;
-  border-bottom: 1px solid #444; /* Slightly lighter line for subtle separation */
-  text-align: center;
-}
+  .nav-links.active {
+    display: flex;              /* Show when 'active' class is applied */
+  }
 
-/* Navbar links */
-nav a {
-  color: #ffffff; /* Bright white text */
-  margin: 0 10px;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-nav a:hover {
-  color: #00ffff; /* High contrast cyan for hover state */
-}
-
-/* Navbar logout button */
-nav button {
-  background-color: transparent;
-  color: #ffffff;
-  border: 1px solid #ffffff;
-  padding: 0.5rem 1rem;
-  margin-left: 10px;
-  cursor: pointer;
-}
-
-nav button:hover {
-  background-color: #ffffff;
-  color: #000000; /* Invert for hover visibility */
-}
-
-/* Dark themed navbar (matching the rest of your site) */
-.navbar {
-  background-color: #111;
-  padding: 1rem;
-  border-bottom: 1px solid #444;
-  text-align: center;
-}
-
-.navbar a {
-  color: #030303;
-  margin: 0 10px;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.navbar a:hover {
-  color: #00ffff;
-}
-
-.navbar button {
-  background-color: transparent;
-  color: #ffffff;
-  border: 1px solid #ffffff;
-  padding: 0.5rem 1rem;
-  margin-left: 10px;
-  cursor: pointer;
-}
-
-.navbar button:hover {
-  background-color: #ffffff;
-  color: #000000;
-}
-
-body {
-  margin: 0;
-}
-
-.top-bar {
-  background-color: #4a90e2; /* Change this to your desired color */
-  color: white;
-  padding: 1rem;
-  text-align: center;
-  font-size: 1.5rem;
-  font-weight: bold;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  .burger {
+    display: flex;              /* Show burger icon on small screens */
+  }
 }
