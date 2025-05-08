@@ -46,63 +46,38 @@ button:hover {
 }
 
 /* Navbar styling */
+
+/* Navbar styling */
 nav {
-  background-color: #111;
+  background-color: #111; /* Dark background for contrast */
   padding: 1rem;
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid #444; /* Slightly lighter line for subtle separation */
   text-align: center;
 }
 
+/* Navbar links */
 nav a {
-  color: #fff;
+  color: #ffffff; /* Bright white text */
   margin: 0 10px;
   text-decoration: none;
   font-weight: bold;
 }
 
 nav a:hover {
-  text-decoration: underline;
+  color: #00ffff; /* High contrast cyan for hover state */
 }
 
+/* Navbar logout button */
 nav button {
   background-color: transparent;
-  color: #fff;
-  border: 1px solid #fff;
+  color: #ffffff;
+  border: 1px solid #ffffff;
   padding: 0.5rem 1rem;
   margin-left: 10px;
   cursor: pointer;
 }
 
 nav button:hover {
-  background-color: #333;
-}
-
-nav {
-  background-color: #222; /* Darker navbar background */
-  padding: 10px;
-  border-bottom: 2px solid #555; /* Subtle separator line */
-}
-
-nav a {
-  color: #fff; /* White text for links */
-  margin-right: 15px;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-nav a:hover {
-  color: #ddd; /* Light gray on hover */
-}
-
-nav button {
-  background-color: transparent;
-  border: 1px solid #fff;
-  color: #fff;
-  padding: 5px 10px;
-  cursor: pointer;
-}
-
-nav button:hover {
-  background-color: #fff;
-  color: #000;
+  background-color: #ffffff;
+  color: #000000; /* Invert for hover visibility */
 }
