@@ -1,98 +1,62 @@
-/* Base resets and layout */
+/* Apply dark theme to the entire body */
 body {
+  background-color: #000;
+  color: #fff;
+  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f9f9f9;
-  color: #333;
-  line-height: 1.6;
 }
 
-/* Container spacing for pages */
-div {
-  max-width: 700px;
-  margin: auto;
+/* Center content inside the form and divs */
+form, .page-content {
+  max-width: 600px;
+  margin: 2rem auto;
   padding: 2rem;
-}
-
-/* Headings */
-h1, h2, h3 {
-  color: #4a4a4a;
-  margin-bottom: 1rem;
-  text-align: center;
-}
-
-/* Paragraphs */
-p {
-  font-size: 1.1rem;
-  text-align: center;
-}
-
-/* Form elements */
-form {
-  background: #fff;
-  padding: 1.5rem;
+  background-color: #111;
+  border: 1px solid #fff;
   border-radius: 8px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px #333;
 }
 
-label {
+/* Input and textarea styling */
+input, textarea, button {
   display: block;
-  margin-top: 1rem;
-  font-weight: 500;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="number"],
-textarea {
   width: 100%;
-  padding: 0.6rem;
-  margin-top: 0.25rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background-color: #222;
   border: 1px solid #ccc;
+  color: #fff;
   border-radius: 4px;
-  font-size: 1rem;
 }
 
-textarea {
-  resize: vertical;
+input::placeholder, textarea::placeholder {
+  color: #aaa;
 }
 
-/* Buttons */
 button {
-  margin-top: 1.5rem;
-  padding: 0.6rem 1.2rem;
-  background-color: #0074cc;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
+  background-color: #333;
+  border: 1px solid #fff;
   cursor: pointer;
+  font-weight: bold;
 }
 
 button:hover {
-  background-color: #005fa3;
-}
-
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+  background-color: #555;
 }
 
 /* Navbar styling */
 nav {
-  background-color: #ffffff;
-  padding: 0.75rem;
+  background-color: #111;
+  padding: 1rem;
+  border-bottom: 1px solid #fff;
   text-align: center;
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 1.5rem;
 }
 
 nav a {
-  margin: 0 1rem;
+  color: #fff;
+  margin: 0 10px;
   text-decoration: none;
-  color: #0074cc;
   font-weight: bold;
 }
 
@@ -101,19 +65,14 @@ nav a:hover {
 }
 
 nav button {
-  background: transparent;
-  color: #cc0000;
-  font-weight: bold;
-  border: none;
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 0.5rem 1rem;
+  margin-left: 10px;
   cursor: pointer;
-  margin-left: 1rem;
 }
 
-/* Accessibility and responsive tweaks */
-@media (max-width: 600px) {
-  nav a,
-  nav button {
-    display: block;
-    margin: 0.5rem 0;
-  }
+nav button:hover {
+  background-color: #333;
 }
