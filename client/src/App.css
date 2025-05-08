@@ -1,7 +1,7 @@
 /* Apply dark theme to the entire body */
 body {
   background-color: #000;
-  color: #fff;
+  color: #000000;
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
@@ -80,4 +80,37 @@ nav button {
 nav button:hover {
   background-color: #ffffff;
   color: #000000; /* Invert for hover visibility */
+}
+
+/* Dark themed navbar (matching the rest of your site) */
+.navbar {
+  background-color: #111;
+  padding: 1rem;
+  border-bottom: 1px solid #444;
+  text-align: center;
+}
+
+.navbar a {
+  color: #ffffff;
+  margin: 0 10px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar a:hover {
+  color: #00ffff;
+}
+
+.navbar button {
+  background-color: transparent;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  padding: 0.5rem 1rem;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.navbar button:hover {
+  background-color: #ffffff;
+  color: #000000;
 }
