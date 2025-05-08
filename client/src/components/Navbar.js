@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './App.css'; // Import the CSS (can be replaced with './Navbar.css' if modularized)
+import '../App.css'; // Import the CSS (can be replaced with './Navbar.css' if modularized)
 
 function Navbar() {
   const navigate = useNavigate();
