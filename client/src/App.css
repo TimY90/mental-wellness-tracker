@@ -91,7 +91,7 @@ nav button:hover {
 }
 
 .navbar a {
-  color: #ffffff;
+  color: #030303;
   margin: 0 10px;
   text-decoration: none;
   font-weight: bold;
@@ -121,7 +121,7 @@ body {
 
 .top-bar {
   background-color: #4a90e2; /* Change this to your desired color */
-  color: rgb(0, 0, 0);
+  color: white;
   padding: 1rem;
   text-align: center;
   font-size: 1.5rem;
