@@ -1,31 +1,37 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Used for programmatic navigation
+import { useNavigate } from 'react-router-dom';
+import Quote from "../components/Quote";
 
 function Home() {
-  const navigate = useNavigate(); // Hook to allow navigation on button click
+  const navigate = useNavigate();
 
   return (
     <div style={{ padding: '2rem', textAlign: 'center' }}>
-      {/* Main heading for the landing page */}
-      <h1>Mental Wellness Tracker</h1>
+      {/* Welcome heading */}
+      <h1>Welcome to the Mental Wellness Tracker</h1>
 
-      {/* Introductory text for the application */}
-      <p>Track your moods, manage your stress, and reflect on your wellness journey.</p>
+      {/* Purpose of the app */}
+      <p style={{ maxWidth: '600px', margin: '0 auto 1.5rem', fontSize: '1.1rem' }}>
+        This app is designed to help you reflect on your emotional well-being by tracking your moods and stress levels over time. 
+        Mental wellness is an important part of life, and self-awareness can be a powerful step toward improvement.
+      </p>
 
-      {/* Button to navigate to the Register page */}
+      {/* Navigation buttons */}
       <button onClick={() => navigate('/register')} style={{ margin: '1rem' }}>
         Register
       </button>
-
-      {/* Button to navigate to the Login page */}
       <button onClick={() => navigate('/login')} style={{ margin: '1rem' }}>
         Login
       </button>
-
-      {/* Button to navigate to the Mood Chart page */}
       <button onClick={() => navigate('/chart')} style={{ margin: '1rem' }}>
         View Mood Chart
       </button>
+
+      {/* Motivational Quote Section */}
+      <div style={{ marginTop: '2rem' }}>
+        <h3>Daily Motivation</h3>
+        <Quote />
+      </div>
     </div>
   );
 }
